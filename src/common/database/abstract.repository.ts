@@ -16,7 +16,7 @@ export abstract class AbstractRepository<T extends AbstractEntity> {
     return (await createdDocument.save()).toJSON() as unknown as T;
   }
 
-  async fineOne(filterQuery: FilterQuery<T>): Promise<T> {
+  async findOne(filterQuery: FilterQuery<T>): Promise<T> {
     // lean() returns a document without metadata, just what we have in DB
     const document = await this.model.findOne(filterQuery).lean<T>();
 
@@ -28,7 +28,7 @@ export abstract class AbstractRepository<T extends AbstractEntity> {
     return document;
   }
 
-  async fineOneAndUpdate(
+  async findOneAndUpdate(
     filterQuery: FilterQuery<T>,
     update: UpdateQuery<T>,
   ) {
@@ -50,7 +50,7 @@ export abstract class AbstractRepository<T extends AbstractEntity> {
     return this.model.find(filterQuery).lean<T[]>();
   }
 
-  async fineOneAndDelete(
+  async findOneAndDelete(
     filterQuery: FilterQuery<T>,
   ): Promise<T> {
     return this.model.findOneAndDelete(filterQuery).lean<T>();
